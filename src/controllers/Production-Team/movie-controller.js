@@ -72,14 +72,13 @@ exports.getMovies = (req, res) => {
     if (error) return res.status(400).json({ error });
 
     if (movies) {
-      res.status(200).json({ moviesList });
+      res.status(200).json({ movies });
     }
   });
 };
 
 exports.getMovieDetailsById = (req, res) => {
   const { movieId } = req.params;
-  console.log(movieId);
   if (movieId) {
     Movie.findOne({ _id: movieId }).exec((error, movie) => {
       if (error) return res.status(400).json({ error });
@@ -89,5 +88,34 @@ exports.getMovieDetailsById = (req, res) => {
     });
   } else {
     return res.status(400).json({ error: "Params required" });
+  }
+};
+
+exports.DeleteMovie = (req, res) => {
+  const { movieId } = req.params;
+  Movie.findOneAndDelete({ _id: movieId })
+    .then((result) => {
+      res.status(200).json(result);
+    })
+    .catch((error) => {
+      res.status(400).json({ error });
+    });
+};
+
+exports.UpdateMovie = (req, res) => {
+  const { movieId } = req.params;
+  console.log(req.body.movieName);
+  if (movieId) {
+    Movie.findOneAndUpdate({
+      movieName: req.body.movieName,
+      description: req.body.description,
+      category: req.body.category,
+      price: req.body.price,
+    }).exec((error, result) => {
+      if (error) return res.status(400).json({ error });
+      if (result) {
+        res.status(202).json({ result });
+      }
+    });
   }
 };

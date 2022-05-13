@@ -8,6 +8,8 @@ const {
   AddMovie,
   getMovies,
   getMovieDetailsById,
+  DeleteMovie,
+  UpdateMovie,
 } = require("../../controllers/Production-Team/movie-controller");
 
 const storage = multer.diskStorage({
@@ -30,6 +32,8 @@ router.post(
 router.get("/admin/movies", getMovies);
 // router.get("/product/:slug", getProductsBySlug);
 router.get("/admin/movies/:movieId", getMovieDetailsById);
+router.delete("/admin/movies/delete/:movieId", DeleteMovie);
+router.patch("/admin/movies/update/:movieId", UpdateMovie);
 
 // router.get('/category/getcategory',getCategories );
 
