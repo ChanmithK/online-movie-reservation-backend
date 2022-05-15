@@ -10,14 +10,12 @@ exports.Register = (req, res) => {
         message: "User already registered !",
       });
 
-    const { firstName, lastName, email, phone, password, re_hash_password } =
-      req.body;
+    const { fullName, email, phone, password, re_hash_password } = req.body;
 
     const hash_password = await bcrypt.hash(password, 10);
 
     const user_ = new User({
-      firstName,
-      lastName,
+      fullName,
       email,
       phone,
       hash_password,

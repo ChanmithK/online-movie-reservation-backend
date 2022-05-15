@@ -20,6 +20,11 @@ const movieSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    showStatus: {
+      type: String,
+      required: true,
+      default: "Now Showing",
+    },
     moviePictures: [
       {
         img: {

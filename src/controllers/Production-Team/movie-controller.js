@@ -2,7 +2,7 @@ const slugify = require("slugify");
 const Movie = require("../../models/movie");
 
 exports.AddMovie = (req, res) => {
-  const { movieName, description, category, price } = req.body;
+  const { movieName, description, category, price, showStatus } = req.body;
   let moviePictures = [];
 
   if (req.files.length > 0) {
@@ -18,6 +18,7 @@ exports.AddMovie = (req, res) => {
     moviePictures,
     category,
     price,
+    showStatus,
     createdBy: req.user._id,
   });
 
@@ -72,7 +73,17 @@ exports.getMovies = (req, res) => {
     if (error) return res.status(400).json({ error });
 
     if (movies) {
-      res.status(200).json({ movies });
+      res.status(200).json({
+        movies,
+        moviesByShowing: {
+          nowShowing: movies.filter(
+            (movie) => movie.showStatus == "Now Showing"
+          ),
+          commingSoonShowing: movies.filter(
+            (movie) => movie.showStatus == "Comming Soon"
+          ),
+        },
+      });
     }
   });
 };

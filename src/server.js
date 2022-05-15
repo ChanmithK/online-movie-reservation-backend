@@ -34,6 +34,7 @@ const movieRoutes = require("./routes/Production-Team/movie");
 
 app.use(cors());
 app.use(express.json());
+app.use("/images", express.static(path.join(__dirname, "uploads")));
 app.use("/api", authRoutes);
 app.use("/api", ticketRoutes);
 app.use("/api", cartRoutes);
