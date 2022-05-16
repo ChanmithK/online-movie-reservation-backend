@@ -54,24 +54,21 @@ exports.addBookingToCart = (req, res) => {
 
 exports.getCartItems = (req, res) => {
   //const { user } = req.body.payload;
+
   //if(user){
-  Cart.findOne({ user: req.user._id })
+
+  Cart.find({ user: req.user._id })
+
     .populate("cartItems.movie", "_id movieName price")
+
     .exec((error, cart) => {
       if (error) return res.status(400).json({ error });
+
       if (cart) {
-        let cartItems = {};
-        cart.cartItems.forEach((item, index) => {
-          cartItems[item.movie._id.toString()] = {
-            _id: item.movie._id.toString(),
-            name: item.movie.movieName,
-            price: item.movie.price,
-            qty: item.quantity,
-          };
-        });
-        res.status(200).json({ cartItems });
+        res.status(200).json({ cartItems: cart });
       }
     });
+
   //}
 };
 
