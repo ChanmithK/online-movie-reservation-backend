@@ -53,14 +53,8 @@ exports.addBookingToCart = (req, res) => {
 };
 
 exports.getCartItems = (req, res) => {
-  //const { user } = req.body.payload;
-
-  //if(user){
-
   Cart.find({ user: req.user._id })
-
     .populate("cartItems.movie", "_id movieName price")
-
     .exec((error, cart) => {
       if (error) return res.status(400).json({ error });
 
@@ -72,24 +66,28 @@ exports.getCartItems = (req, res) => {
   //}
 };
 
-// // new update remove cart items
-// exports.removeCartItems = (req, res) => {
-//   const { productId } = req.body.payload;
-//   if (productId) {
-//     Cart.update(
-//       { user: req.user._id },
-//       {
-//         $pull: {
-//           cartItems: {
-//             product: productId,
-//           },
-//         },
-//       }
-//     ).exec((error, result) => {
-//       if (error) return res.status(400).json({ error });
-//       if (result) {
-//         res.status(202).json({ result });
-//       }
-//     });
-//   }
-// };
+exports.removeCartItems = (req, res) => {
+  const id = req.body.id;
+
+  console.log(id);
+
+  if (id) {
+    Cart.updateOne(
+      { user: req.user._id },
+
+      {
+        $pull: {
+          cartItems: {
+            _id: id,
+          },
+        },
+      }
+    ).exec((error, result) => {
+      if (error) return res.status(400).json({ error });
+
+      if (result) {
+        res.status(202).json({ result });
+      }
+    });
+  }
+};
