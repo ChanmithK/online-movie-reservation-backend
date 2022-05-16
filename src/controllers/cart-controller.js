@@ -6,18 +6,18 @@ exports.addBookingToCart = (req, res) => {
     if (cart) {
       //if cart already exists then update cart by quantity
 
-      const _booking = req.body.cartItems.booking;
-      const cartBooking = cart.cartItems.find((c) => c.booking == _booking);
+      const _movie = req.body.cartItems.movie;
+      const cartMovie = cart.cartItems.find((c) => c.movie == _movie);
 
       let condition, update;
-      if (cartBooking) {
-        condition = { user: req.user._id, "cartItems.booking": _booking };
+      if (cartMovie) {
+        condition = { user: req.user._id, "cartItems.movie": _movie };
         update = {
           $set: {
             "cartItems.$": {
               //This .$ is use to update relavnt item relavant quantity
               ...req.body.cartItems,
-              // quantity: cartBooking.quantity + req.body.cartItems.quantity
+              // quantity: cartMovie.quantity + req.body.cartItems.quantity
             },
           },
         };
@@ -51,3 +51,48 @@ exports.addBookingToCart = (req, res) => {
     }
   });
 };
+
+exports.getCartItems = (req, res) => {
+  //const { user } = req.body.payload;
+  //if(user){
+  Cart.findOne({ user: req.user._id })
+    .populate("cartItems.movie", "_id movieName price")
+    .exec((error, cart) => {
+      if (error) return res.status(400).json({ error });
+      if (cart) {
+        let cartItems = {};
+        cart.cartItems.forEach((item, index) => {
+          cartItems[item.movie._id.toString()] = {
+            _id: item.movie._id.toString(),
+            name: item.movie.movieName,
+            price: item.movie.price,
+            qty: item.quantity,
+          };
+        });
+        res.status(200).json({ cartItems });
+      }
+    });
+  //}
+};
+
+// // new update remove cart items
+// exports.removeCartItems = (req, res) => {
+//   const { productId } = req.body.payload;
+//   if (productId) {
+//     Cart.update(
+//       { user: req.user._id },
+//       {
+//         $pull: {
+//           cartItems: {
+//             product: productId,
+//           },
+//         },
+//       }
+//     ).exec((error, result) => {
+//       if (error) return res.status(400).json({ error });
+//       if (result) {
+//         res.status(202).json({ result });
+//       }
+//     });
+//   }
+// };

@@ -10,16 +10,16 @@ const cartSchema = new mongoose.Schema(
     },
     cartItems: [
       {
-        booking: {
+        movie: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: "Booking",
+          ref: "Movie",
           required: true,
         },
 
-        price: {
-          type: Number,
-          required: true,
-        },
+        // price: {
+        //   type: Number,
+        //   required: true,
+        // },
       },
     ],
   },
