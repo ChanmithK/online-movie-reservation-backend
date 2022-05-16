@@ -31,6 +31,7 @@ const ticketRoutes = require("./routes/booking-ticket");
 const cartRoutes = require("./routes/cart");
 const adminRoutes = require("./routes/Production-Team/auth");
 const movieRoutes = require("./routes/Production-Team/movie");
+const theaterRoutes = require("./routes/Production-Team/theater");
 
 app.use(cors());
 app.use(express.json());
@@ -40,3 +41,4 @@ app.use("/api", ticketRoutes);
 app.use("/api", cartRoutes);
 app.use("/api", adminRoutes);
 app.use("/api", movieRoutes);
+app.use("/api", theaterRoutes);
