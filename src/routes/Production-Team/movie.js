@@ -33,7 +33,7 @@ router.get("/admin/movies", getMovies);
 // router.get("/product/:slug", getProductsBySlug);
 router.get("/admin/movies/:movieId", getMovieDetailsById);
 router.delete("/admin/movies/delete/:movieId", DeleteMovie);
-router.patch("/admin/movies/update/:movieId", UpdateMovie);
+router.post("/admin/movies/update", UpdateMovie);
 
 // router.get('/category/getcategory',getCategories );
 

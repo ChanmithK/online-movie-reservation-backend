@@ -114,15 +114,18 @@ exports.DeleteMovie = (req, res) => {
 };
 
 exports.UpdateMovie = (req, res) => {
-  const { movieId } = req.params;
+  const { movieId } = req.body;
   console.log(req.body.movieName);
   if (movieId) {
-    Movie.findOneAndUpdate({
-      movieName: req.body.movieName,
-      description: req.body.description,
-      category: req.body.category,
-      price: req.body.price,
-    }).exec((error, result) => {
+    Movie.findOneAndUpdate(
+      { _id: movieId },
+      {
+        movieName: req.body.movieName,
+        description: req.body.description,
+        category: req.body.category,
+        price: req.body.price,
+      }
+    ).exec((error, result) => {
       if (error) return res.status(400).json({ error });
       if (result) {
         res.status(202).json({ result });
