@@ -13,7 +13,7 @@ exports.AddMovie = (req, res) => {
 
   const movie = new Movie({
     movieName,
-    slug: slugify(movieName),
+    // slug: slugify(movieName),
     description,
     moviePictures,
     category,
@@ -80,7 +80,7 @@ exports.getMovies = (req, res) => {
             (movie) => movie.showStatus == "Now Showing"
           ),
           commingSoonShowing: movies.filter(
-            (movie) => movie.showStatus == "Comming Soon"
+            (movie) => movie.showStatus == "Coming Soon"
           ),
         },
       });
