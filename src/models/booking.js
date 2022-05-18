@@ -24,6 +24,9 @@ const bookingSchema = new mongoose.Schema(
     qrCode: {
       type: String,
     },
+    theater: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
