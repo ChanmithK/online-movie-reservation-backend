@@ -43,3 +43,17 @@ exports.DeleteBooking = (req, res) => {
       res.status(400).json({ error });
     });
 };
+
+exports.getBookingDetailsById = (req, res) => {
+  const { bookingId } = req.params;
+  if (bookingId) {
+    Booking.findOne({ _id: bookingId }).exec((error, booking) => {
+      if (error) return res.status(400).json({ error });
+      if (booking) {
+        res.status(201).json({ booking });
+      }
+    });
+  } else {
+    return res.status(400).json({ error: "Params required" });
+  }
+};
