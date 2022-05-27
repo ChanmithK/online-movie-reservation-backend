@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const shortid = require("shortid");
 
+//Admin Register controller
 exports.TeamRegister = (req, res) => {
   User.findOne({ email: req.body.email }).exec(async (error, user) => {
     if (user)
@@ -41,6 +42,7 @@ exports.TeamRegister = (req, res) => {
   });
 };
 
+//Admin Login controller
 exports.TeamLogin = (req, res) => {
   User.findOne({ email: req.body.email }).exec((error, user) => {
     if (error) return res.status(400).json({ error });

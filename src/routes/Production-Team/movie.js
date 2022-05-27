@@ -30,11 +30,8 @@ router.post(
   AddMovie
 );
 router.get("/admin/movies", getMovies);
-// router.get("/product/:slug", getProductsBySlug);
 router.get("/admin/movies/:movieId", getMovieDetailsById);
 router.delete("/admin/movies/delete/:movieId", DeleteMovie);
 router.post("/admin/movies/update", UpdateMovie);
-
-// router.get('/category/getcategory',getCategories );
 
 module.exports = router;

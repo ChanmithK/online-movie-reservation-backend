@@ -1,11 +1,12 @@
 const Cart = require("../models/cart");
+
+//User Add Booking to Cart controller
 exports.addBookingToCart = (req, res) => {
   //One user can have only one cart. So one cart has different cartItems.
   Cart.findOne({ user: req.user._id }).exec((error, cart) => {
     if (error) return res.status(400).json({ error });
     if (cart) {
       //if cart already exists then update cart by quantity
-
       const _movie = req.body.cartItems.movie;
       const cartMovie = cart.cartItems.find((c) => c.movie == _movie);
 
@@ -36,7 +37,7 @@ exports.addBookingToCart = (req, res) => {
         }
       });
     } else {
-      //if cart not exists then create a new cart
+      //if cart not exists then create a new cart controller
       const cart = new Cart({
         user: req.user._id,
         cartItems: [req.body.cartItems],
@@ -52,6 +53,7 @@ exports.addBookingToCart = (req, res) => {
   });
 };
 
+//User get Cart Bookings controller
 exports.getCartItems = (req, res) => {
   Cart.find({ user: req.user._id })
     .populate("cartItems.movie", "_id movieName price")
@@ -66,6 +68,7 @@ exports.getCartItems = (req, res) => {
   //}
 };
 
+//User Remove Booking from the cart controller
 exports.removeCartItems = (req, res) => {
   const id = req.body.id;
 

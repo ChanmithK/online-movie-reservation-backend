@@ -1,8 +1,8 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const shortid = require("shortid");
 
+//User Register Controller
 exports.Register = (req, res) => {
   User.findOne({ email: req.body.email }).exec(async (error, user) => {
     if (user)
@@ -39,6 +39,7 @@ exports.Register = (req, res) => {
   });
 };
 
+//User Login Controller
 exports.Login = (req, res) => {
   User.findOne({ email: req.body.email }).exec((error, user) => {
     if (error) return res.status(400).json({ error });

@@ -15,11 +15,6 @@ const cartSchema = new mongoose.Schema(
           ref: "Movie",
           required: true,
         },
-
-        // price: {
-        //   type: Number,
-        //   required: true,
-        // },
       },
     ],
   },

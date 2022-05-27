@@ -1,5 +1,6 @@
 const Booking = require("../models/booking");
 
+//User Ticket Booking Controller
 exports.TicketBooking = (req, res) => {
   const { movieId, noOfSeats, date, time, qrCode, theater } = req.body;
 
@@ -20,6 +21,7 @@ exports.TicketBooking = (req, res) => {
   });
 };
 
+//User get All Booking Controller
 exports.getBookings = (req, res) => {
   Booking.find({}).exec((error, bookings) => {
     if (error) return res.status(400).json({ error });
@@ -32,6 +34,7 @@ exports.getBookings = (req, res) => {
   });
 };
 
+//User Delete Booking Controller
 exports.DeleteBooking = (req, res) => {
   const { bookingId } = req.params;
   console.log(req.params);
@@ -44,6 +47,7 @@ exports.DeleteBooking = (req, res) => {
     });
 };
 
+//User get Relevant Booking By Id Controller
 exports.getBookingDetailsById = (req, res) => {
   const { bookingId } = req.params;
   if (bookingId) {

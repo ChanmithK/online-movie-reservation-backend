@@ -1,6 +1,7 @@
 const slugify = require("slugify");
 const Movie = require("../../models/movie");
 
+//Admin Add movie controller
 exports.AddMovie = (req, res) => {
   const { movieName, description, category, price, showStatus } = req.body;
   let moviePictures = [];
@@ -30,44 +31,7 @@ exports.AddMovie = (req, res) => {
   });
 };
 
-// exports.getProductsBySlug = (req, res) => {
-//   const { slug } = req.params;
-//   Categoty.findOne({ slug: slug })
-//     .select("_id ")
-//     .exec((error, category) => {
-//       if (error) {
-//         return res.status(400).json({ error });
-//       }
-
-//       if (category) {
-//         Product.find({ category: category._id }).exec((error, products) => {
-//           if (error) {
-//             return res.status(400).json({ error });
-//           }
-
-//           if (products.length > 0) {
-//             res.status(200).json({
-//               products,
-//               productsByPrice: {
-//                 under5k: products.filter((product) => product.price <= 5000),
-//                 under10k: products.filter(
-//                   (product) => product.price > 5000 && product.price <= 10000
-//                 ),
-//                 under15k: products.filter(
-//                   (product) => product.price > 10000 && product.price <= 15000
-//                 ),
-//                 under20k: products.filter(
-//                   (product) => product.price > 15000 && product.price <= 20000
-//                 ),
-//                 upper20k: products.filter((product) => product.price > 20000),
-//               },
-//             });
-//           }
-//         });
-//       }
-//     });
-// };
-
+//Admin get all movies controller
 exports.getMovies = (req, res) => {
   Movie.find({}).exec((error, movies) => {
     if (error) return res.status(400).json({ error });
@@ -88,6 +52,7 @@ exports.getMovies = (req, res) => {
   });
 };
 
+//Admin get relevant movie deatils by Id controller
 exports.getMovieDetailsById = (req, res) => {
   const { movieId } = req.params;
   if (movieId) {
@@ -102,6 +67,7 @@ exports.getMovieDetailsById = (req, res) => {
   }
 };
 
+//Admin Delete relevant Movie controller
 exports.DeleteMovie = (req, res) => {
   const { movieId } = req.params;
   Movie.findOneAndDelete({ _id: movieId })
@@ -113,6 +79,7 @@ exports.DeleteMovie = (req, res) => {
     });
 };
 
+//Amin Update relevant Movie deatils controller
 exports.UpdateMovie = (req, res) => {
   const { movieId } = req.body;
   console.log(req.body.movieName);
